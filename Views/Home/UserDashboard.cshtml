@@ -1,0 +1,74 @@
+@model Post
+<style>
+.form-control{
+    width: 75%;
+    margin-left: 5%;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 40px;
+}
+.allPosts{
+    display: inline-block;
+    margin-top: 50px;
+}
+.OnePost{
+    display: flex;
+    width: 575px;
+    margin-left: 5%;
+}
+.bottomStuff{
+}
+.leftSide{
+    width: 25%;
+}
+.rightSide{
+    width: 70%;
+}
+p{
+    padding: 20px;
+    border: 2px black solid;
+}
+.DeleteButton{
+    float: right
+}
+</style>
+<div id="header">
+    <h1>Hi @ViewBag.ThisUser.Alias!</h1>
+</div>
+
+<form asp-action="CreatePost" asp-controller="Home" method="POST" class="inputBox">
+    <input asp-for="Content" class="form-control" placeholder="Post Something witty here...">
+    <span asp-validation-for="Content"></span>
+    <input type="submit" value="Idea!" class="btn btn-primary btn-sm">
+</form>
+<div class="allPosts">
+    @if(@ViewBag.AllPosts != null){
+        @foreach(Post thisPost in @ViewBag.AllPosts){
+            @foreach(User testUser in @ViewBag.AllUsers){
+                @if(testUser.UserId == thisPost.UserId){
+                    <div class="OnePost">
+                        <h5 class="leftSide textRight"><a href="ViewUser/@testUser.UserId">@testUser.Alias</a> says:</h5>
+                            @{
+                                string hasLiked = "false";
+                                @foreach(Like thisLike in @ViewBag.AllLikes){
+                                    @if(thisLike.PostId == thisPost.PostId){
+                                        @if(thisLike.UserId == @ViewBag.ThisUser.UserId){
+                                            hasLiked = "true";
+                                        }
+                                    }
+                                }
+                                    <div class="rightSide">
+                                        <p>@thisPost.Content</p>
+                                        <h4 class="bottomStuff"> 
+                                            @if(hasLiked == "false"){<a href="LikePost/@thisPost.PostId">Like</a>} else {<a href="UnLikePost/@thisPost.PostId">UnLike</a>} <a href="ViewPost/@thisPost.PostId" style="margin-left: 50px;">@thisPost.NumLikes people</a> like this.</h4>
+                                                @if(@ViewBag.ThisUser.UserId == thisPost.UserId){
+                                                    <a class="DeleteButton" href="DeletePost/@thisPost.PostId">Delete Post</a>
+                                                }
+                                    </div>
+                            }
+                    </div>
+                }
+            }
+        }
+    }
+</div>

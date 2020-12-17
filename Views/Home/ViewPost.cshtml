@@ -1,0 +1,39 @@
+<style>
+p{
+    padding: 20px;
+    border: 2px black solid;
+    width: 80%;
+}
+.mainArea{
+    display: flex;
+    width: 100%;
+    margin-top: 8%;
+}
+h3{
+    margin-top: 50px;
+}
+table{
+    width: 60%;
+}
+</style>
+<div class="mainArea">
+    <h4> <a href="ViewUser/@ViewBag.Creator.UserId">@ViewBag.Creator.Alias</a> says:</h4>
+    <p>@ViewBag.ThisPost.Content</p>
+</div>
+<h3>People who liked this post:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Alias</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(User thisUser in @ViewBag.LikingUsers){
+            <tr>
+                <td> <a href="ViewUser/@thisUser.UserId">@thisUser.Alias</a> </td>
+                <td>@thisUser.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

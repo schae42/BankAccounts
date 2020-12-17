@@ -1,0 +1,86 @@
+﻿<style>
+.formBox{
+    width: 48%;
+    border: darkgrey solid 2px;
+    display: inline-flex;
+}
+#mainContainer{
+    display: inline-block;
+    width: 100%;
+}
+.form-control{
+    width: 85%;
+}
+.inputBoxes{
+    display: flex;
+    padding: 10px;
+}
+.leftSide, .rightSide{
+    margin: 10px;
+}
+.btn{
+    float: right;
+}
+.inputStuff{
+    width: 100%;
+}
+</style>
+@model User
+<div id="mainContainer">
+    <h1>Welcome!</h1>
+    <form asp-action="Registration" asp-controller="Home" method="POST" class="formBox">
+        <div id="inputStuff">
+            <div class="leftSide">
+                <h3><b>Registration</b></h3>
+                <div class="inputBoxes">
+                    <span asp-validation-for="Name"></span>
+                    <label asp-for="Name">Name: </label>
+                    <input asp-for="Name" class="form-control">
+                </div>
+                <div class="inputBoxes">
+                    <label asp-for="Alias">Alias: </label>
+                    <input asp-for="Alias" class="form-control">
+                    <span asp-validation-for="Alias"></span>
+                </div>
+                <div class="inputBoxes">
+                    <label asp-for="Email">Email: </label>
+                    <input asp-for="Email" class="form-control">
+                    <span asp-validation-for="Email"></span>
+                </div>
+                <p>*Password should be at least 8 characters</p>
+                <div class="inputBoxes">
+                    <label asp-for="Password">Password: </label>
+                    <input type="password" asp-for="Password" class="form-control" >
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div class="inputBoxes">
+                    <label asp-for="ConfirmPassword">Confirm PW: </label>
+                    <input type="password" asp-for="ConfirmPassword" class="form-control">
+                    <span asp-validation-for="ConfirmPassword"></span>
+                </div>
+                <input type="submit" class="btn btn-primary btn-lg" value="Register"/>
+            </div>
+        </div>
+    </form>
+    <form asp-action="Login" asp-controller="Home" method="POST" class="formBox">
+        <div class="login">
+            <form asp-action="ProcessLogin" asp-controller="Home" method="post" class="form-group">
+                <div class="rightSide">
+                    <h3><b>Log In</b></h3>
+                    <div class="inputBoxes">
+                        <label asp-for="Email">Email: </label>
+                        <input asp-for="LoginEmail" class="form-control">
+                        <span asp-validation-for="LoginEmail" class="text-danger"></span>
+                    </div>
+                    <div class="inputBoxes">
+                        <label asp-for="LoginPassword">Password: </label>
+                        <input asp-for="LoginPassword" class="form-control" >
+                        <span asp-validation-for="LoginPassword" class="text-danger"></span>
+                    </div> 
+                    <br>
+                    <input type="submit" class="btn btn-primary btn-lg" value="Log In">
+                </div>
+            </form>
+        </div>
+    </form>
+</div>
